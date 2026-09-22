@@ -1,0 +1,8 @@
+{
+  "name": "StepFun Quota Indicator",
+  "description": "Show StepFun (阶跃星辰) Step Plan Credit quota in the GNOME top bar. Reads ~/.config/gnome-stepfun-quota/stepfun.json (generate with: python3 stepfun-helper.py export).",
+  "uuid": "stepfun-quota@example.org",
+  "shell-version": ["49"],
+  "url": "https://platform.stepfun.com/account-overview",
+  "version": 1
+}

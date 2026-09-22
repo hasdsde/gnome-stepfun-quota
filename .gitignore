@@ -1,0 +1,7 @@
+# 本机 token 配置文件（含 oasisToken / refreshToken / webid，绝对不要提交）
+stepfun.json
+*.bak
+
+# 编辑器/系统垃圾
+*~
+.DS_Store

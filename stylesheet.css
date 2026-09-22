@@ -1,0 +1,8 @@
+/* StepFun Quota Indicator */
+.quota-box {
+    spacing: 4px;
+}
+.sf-quota-label {
+    font-weight: bold;
+    padding: 0 2px;
+}
