@@ -9,6 +9,8 @@
 - **自动刷新**：每 25 分钟拉取一次（access token 30 分钟过期，提前刷）；连续失败按 2s → 5s → 15s → 30s 重试，之后回退 60s
 - **网络**：StepFun API 国内直连，不走代理
 
+![实际效果截图](docs/screenshot.png)
+
 ## 依赖
 
 - GNOME Shell ≥ 49
