@@ -54,10 +54,17 @@ function readStepFunConfig() {
 }
 
 // 把刷新后的新 token 写回配置文件（refreshToken 会轮换，必须持久化）
-function writeStepFunConfig(accessToken, refreshToken) {
+// webid 三处来源优先：调用方内存配置 > 旧文件。丢了它 readStepFunConfig 会判"未配置"
+function writeStepFunConfig(accessToken, refreshToken, webid) {
     try {
         let file = Gio.File.new_for_path(SF_CONFIG_PATH);
-        let json = JSON.stringify({ oasisToken: accessToken, refreshToken }, null, 2);
+        if (!webid) {
+            try {
+                let [, contents] = file.load_contents(null);
+                webid = JSON.parse(new TextDecoder('utf-8').decode(contents)).webid ?? null;
+            } catch (e) { /* 文件不存在/损坏时写回后由 readStepFunConfig 提示 */ }
+        }
+        let json = JSON.stringify({ oasisToken: accessToken, refreshToken, webid }, null, 2);
         file.replace_contents(
             json, null, false,
             Gio.FileCreateFlags.REPLACE_DESTINATION, null);
@@ -156,7 +163,7 @@ class QuotaIndicator extends PanelMenu.Button {
             }
             this._sfConfig.accessToken = newAccess;
             this._sfConfig.refreshToken = newRefresh;
-            writeStepFunConfig(newAccess, newRefresh);
+            writeStepFunConfig(newAccess, newRefresh, this._sfConfig.webid);
 
             this._sfQuota(newAccess, (rateData) => {
                 this._fetchingSf = false;
